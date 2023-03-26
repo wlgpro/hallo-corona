@@ -118,7 +118,18 @@ export default function Inbox() {
           ))}
         </Container>
       ) : (
-        ""
+        <>
+          <h2 className="fw-bold text-primary-color mt-5">Consultation</h2>
+          <Link
+            to="/consultation-form"
+            className="d-flex justify-content-end"
+            style={{ textDecoration: "none" }}
+          >
+            <Button variant="light" className="button2 px-3 fw-bold rounded-2">
+              Request New Consultation
+            </Button>
+          </Link>
+        </>
       )}
     </>
   );
