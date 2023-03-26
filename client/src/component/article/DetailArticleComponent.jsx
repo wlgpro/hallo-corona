@@ -23,7 +23,7 @@ function DetailArticleComponent() {
       <Card className="py-5 shadow my-5 border-0">
         <Card.Img
           variant="top"
-          src={"http://localhost:5000/uploads/" + article?.image}
+          src={article?.image}
           className="mx-auto rounded-0"
           style={{ width: "85%", height: "30%" }}
         />

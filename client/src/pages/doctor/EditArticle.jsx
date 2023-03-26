@@ -24,7 +24,7 @@ export default function EditArticle() {
   async function getUpdate() {
     const response = await API.get("/article/" + id);
     console.log("ini get data update", response);
-    setPreview("http://localhost:5000/uploads/" + response.data.data.image);
+    setPreview(response.data.data.image);
     setForm({
       ...form,
       title: response.data.data.title,
