@@ -41,7 +41,6 @@ function Header() {
   const checkUser = async () => {
     try {
       const response = await API.get("/check-auth");
-      console.log("check user succes : ", response);
 
       // get user data
       let payload = response.data.data;
@@ -63,7 +62,6 @@ function Header() {
   };
 
   const logout = () => {
-    console.log(state);
     dispatch({
       type: "LOGOUT",
     });
@@ -87,7 +85,6 @@ function Header() {
   const handleCloseSignIn = () => setShowSignIn(false);
   const handleShowSignIn = () => setShowSignIn(true);
 
-  console.log(state);
   return (
     <>
       {isLoading ? null : (

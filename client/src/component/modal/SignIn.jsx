@@ -38,7 +38,6 @@ function ModalSignIn(props) {
 
       const response = await API.post("/login", form, config);
 
-      console.log(response);
       Swal.fire({
         position: "center",
         icon: "success",

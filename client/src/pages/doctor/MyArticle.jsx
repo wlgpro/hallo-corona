@@ -12,7 +12,6 @@ export default function MyArticle() {
 
   let { data: articles, refetch } = useQuery("articlesCache", async () => {
     const response = await API.get("/articles/" + id);
-    console.log("ini articles cuyy", response);
     return response.data.data;
   });
 
@@ -25,7 +24,6 @@ export default function MyArticle() {
         icon: "success",
         confirmButtonText: "Kembali",
       });
-      console.log("ini delete : ", response);
       refetch();
     } catch (error) {
       Swal.fire({

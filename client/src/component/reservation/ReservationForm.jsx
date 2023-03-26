@@ -57,7 +57,6 @@ export default function ReservationForm() {
 
       // Insert data user to database
       const response = await API.post("/consultation", formData, config);
-      console.log("add product success : ", response);
       navigate("/patient/consultation");
     } catch (error) {
       console.log(error);

@@ -43,7 +43,6 @@ export default function DetReserv() {
       },
     };
     const response = await API.get("/consultation/" + id, config);
-    console.log(response);
     setForm({
       id: response.data.data.id,
       age: response.data.data.age,
@@ -95,7 +94,6 @@ export default function DetReserv() {
       };
 
       const response = await API.patch("/consultation/" + id, data);
-      console.log(response);
       navigate("/doctor/reservation-data");
     } catch (error) {
       console.log(error);

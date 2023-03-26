@@ -23,7 +23,6 @@ export default function EditArticle() {
 
   async function getUpdate() {
     const response = await API.get("/article/" + id);
-    console.log("ini get data update", response);
     setPreview(response.data.data.image);
     setForm({
       ...form,
@@ -43,7 +42,6 @@ export default function EditArticle() {
       [e.target.name]:
         e.target.type === "file" ? e.target.files : e.target.value,
     });
-    console.log(e.target.value);
     // Create image url for preview
     if (e.target.type === "file") {
       let url = URL.createObjectURL(e.target.files[0]);
@@ -72,10 +70,7 @@ export default function EditArticle() {
       formData.set("desc", form.desc);
       formData.set("category", form.category);
 
-      console.log(form);
-
       const response = await API.patch("/article/" + id, formData, config);
-      console.log("ini patch api article : ", response);
       Swal.fire({
         title: "Success!",
         text: "Article berhasil diedit",

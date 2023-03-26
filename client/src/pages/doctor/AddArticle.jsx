@@ -49,11 +49,8 @@ export default function AddArticle() {
       formData.set("desc", form.desc);
       formData.append("category", form.category);
 
-      console.log(form);
-
       // Insert article data
       const response = await API.post("/article", formData, config);
-      console.log(response);
 
       navigate("/doctor/article");
     } catch (error) {

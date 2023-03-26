@@ -82,8 +82,6 @@ function ModalSignUp(props) {
         timer: 1500,
       });
 
-      console.log("register success : ", response);
-
       setForm({
         fullName: "",
         username: "",

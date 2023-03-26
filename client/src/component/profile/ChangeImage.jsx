@@ -42,7 +42,6 @@ export default function ImageModal(props) {
 
       // Insert product data
       const response = await API.patch("/change-image/" + tkn.id, formData);
-      console.log(response);
 
       alert("successfully change your image!");
     } catch (error) {

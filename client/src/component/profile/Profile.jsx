@@ -20,8 +20,6 @@ export default function Profile() {
     const response = await API.get("/user/" + tkn.id);
     return response.data.data;
   });
-  console.log("userrrrrrrrrrr", userId);
-  console.log("ini id", tkn);
 
   const [modalShowImage, setModalShowImage] = useState(false);
 

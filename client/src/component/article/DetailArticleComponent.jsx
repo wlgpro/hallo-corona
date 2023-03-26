@@ -15,7 +15,7 @@ function DetailArticleComponent() {
   return (
     <Container>
       <h1 className="mt-5">{article?.title}</h1>
-      <p>{article?.createdAt}</p>
+      <p>{moment(item?.createdAt).format("DD MMMM YYYY")}</p>
       <p>
         Author :{" "}
         <span className="text-primary-color">Dr.{article?.user.fullname}</span>

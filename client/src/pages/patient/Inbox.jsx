@@ -12,11 +12,8 @@ export default function Inbox() {
 
   let id = state.user.id;
 
-  console.log("ini id", id);
-
   let { data: consultations } = useQuery("cacheConsultations", async () => {
     const response = await API.get("/consultations/" + id);
-    console.log("ini response : ", response);
     return response.data.data;
   });
 
