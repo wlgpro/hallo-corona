@@ -1,14 +1,18 @@
 package handlers
 
 import (
+	"context"
 	"fmt"
 	articledto "hallo-corona/dto/article"
 	dto "hallo-corona/dto/result"
 	"hallo-corona/models"
 	"hallo-corona/repositories"
 	"net/http"
+	"os"
 	"strconv"
 
+	"github.com/cloudinary/cloudinary-go/v2"
+	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/labstack/echo/v4"
@@ -63,12 +67,27 @@ func (h *handlerArticle) CreateArticle(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 	}
 
+	var ctx = context.Background()
+	var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+	var API_KEY = os.Getenv("API_KEY")
+	var API_SECRET = os.Getenv("API_SECRET")
+
+	// Add your Cloudinary credentials ...
+	cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+
+	// Upload file to Cloudinary ...
+	resp, err := cld.Upload.Upload(ctx, dataFile, uploader.UploadParams{Folder: "hallo corona"})
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	// submit to db article
 	article := models.Article{
 		Title:    request.Title,
 		UserID:   int(userId),
 		User:     models.UserResponse{},
-		Image:    request.Image,
+		Image:    resp.SecureURL,
 		Desc:     request.Desc,
 		Category: request.Category,
 	}
@@ -105,6 +124,21 @@ func (h *handlerArticle) UpdateArticle(c echo.Context) error {
 			return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
 		}
 
+		var ctx = context.Background()
+		var CLOUD_NAME = os.Getenv("CLOUD_NAME")
+		var API_KEY = os.Getenv("API_KEY")
+		var API_SECRET = os.Getenv("API_SECRET")
+
+		// Add your Cloudinary credentials ...
+		cld, _ := cloudinary.NewFromParams(CLOUD_NAME, API_KEY, API_SECRET)
+
+		// Upload file to Cloudinary ...
+		resp, err := cld.Upload.Upload(ctx, dataFile, uploader.UploadParams{Folder: "hallo corona"})
+
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+
 		article, err := h.ArticleRepository.GetArticle(id)
 		if err != nil {
 			return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
@@ -115,7 +149,7 @@ func (h *handlerArticle) UpdateArticle(c echo.Context) error {
 		}
 
 		if request.Image != "" {
-			article.Image = request.Image
+			article.Image = resp.SecureURL
 		}
 
 		if request.Desc != "" {
