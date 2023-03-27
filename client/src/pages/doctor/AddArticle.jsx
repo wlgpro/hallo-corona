@@ -52,7 +52,7 @@ export default function AddArticle() {
       // Insert article data
       const response = await API.post("/article", formData, config);
 
-      navigate("/doctor/article");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
