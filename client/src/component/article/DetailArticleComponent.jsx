@@ -2,20 +2,20 @@ import { Container, Card } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { API } from "../../config/api";
+import moment from "moment";
 
 function DetailArticleComponent() {
   let { id } = useParams("id");
 
   let { data: article } = useQuery("myArticlesCache", async () => {
     const response = await API.get("/article/" + id);
-    console.log("ini respon detail cokk", response);
     return response.data.data;
   });
 
   return (
     <Container>
       <h1 className="mt-5">{article?.title}</h1>
-      <p>{moment(item?.createdAt).format("DD MMMM YYYY")}</p>
+      <p>{moment(article?.createdAt).format("DD MMMM YYYY")}</p>
       <p>
         Author :{" "}
         <span className="text-primary-color">Dr.{article?.user.fullname}</span>
